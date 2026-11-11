@@ -225,3 +225,5 @@ a { color: var(--vurgu); }
   animation: nabiz 1.6s ease-in-out infinite;
 }
 @keyframes nabiz { 50% { opacity: .3; } }
+
+.resim-sahibi { text-align: center; color: var(--soluk); font-size: .85rem; font-style: italic; margin: 2rem 0 0; }
