@@ -37,7 +37,7 @@ layout: default
 </article>
 
 <script src="{{ '/assets/kitap.js' | relative_url }}" defer></script>
-{% if site.firebase and site.firebase.databaseURL and page.ses %}
+{% if site.firebase.databaseURL and site.firebase.databaseURL != "" and page.ses %}
 <script>window.MASAL_SAYAC = { id: {{ page.name | remove: ".md" | jsonify }}, firebase: {{ site.firebase | jsonify }} };</script>
 <script type="module" src="{{ '/assets/sayac.js' | relative_url }}"></script>
 {% endif %}
