@@ -10,7 +10,7 @@ layout: default
     {{ content }}
   </div>
 
-  <div class="kitap" id="kitap" hidden>
+  <div class="kitap" id="kitap" hidden{% if page.ses %} data-ses="{{ page.ses | relative_url }}"{% endif %}>
     <figure class="sahne">
       <img id="sahne-resim" alt="">
     </figure>
@@ -28,7 +28,7 @@ layout: default
 
 <button type="button" class="ses-dugme" id="ses-dugme" aria-pressed="false" hidden>
   <span class="ikon" aria-hidden="true">🔈</span>
-  <span class="yazi">Sesli oku</span>
+  <span class="yazi">Masalı dinle</span>
 </button>
 
 <script src="{{ '/assets/kitap.js' | relative_url }}" defer></script>

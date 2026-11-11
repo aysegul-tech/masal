@@ -33,14 +33,12 @@ Resimler en iyi 3:2 oranında (ör. 1200×800) görünür. Kendi suluboya resiml
 
 ## Sesli okuma
 
-Sağ alttaki **Sesli oku** düğmesi masalı tarayıcının Türkçe kadın sesiyle okur ve her sayfanın sonunda
-kendiliğinden sonraki sayfaya geçer. Mac ve iPhone'da "Yelda" sesi kullanılır. Düğmeye tekrar basınca ses kapanır.
+Her sayfa için ayrı bir ses dosyası kullanılır. Örneğin `assets/ay-isigi/ses/` klasörüne
+`1.mp3`, `2.mp3`, … şeklinde sayfa sırasıyla koy ve masalın en üstteki bilgilerine şunu ekle:
+
+`ses: /assets/ay-isigi/ses/`
+
+Bu satır varsa sağ altta **Masalı dinle** düğmesi çıkar. Ses her sayfanın sonunda kendiliğinden
+sonraki sayfaya geçer. Satır yoksa düğme görünmez.
 
 `_araclar/suluboya.py` örnek masalın resimlerini üreten betiktir.
-
-## Dosyalar
-
-- `_config.yml` – sitenin adı ve açıklaması
-- `_layouts/` – sayfa şablonları
-- `assets/style.css` – renkler ve yazı tipleri
-- `masallar/` – masallar

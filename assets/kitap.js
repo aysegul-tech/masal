@@ -76,68 +76,42 @@
     dokunX = null;
   });
 
-  // --- 2. Sesli okuma (tarayıcının kendi Türkçe sesiyle)
+  // --- 2. Sesli okuma: her sayfa için kayıtlı ses dosyası (ör. ses/1.mp3, ses/2.mp3 …)
   const dugme = document.getElementById("ses-dugme");
-  const konusma = window.speechSynthesis;
+  const sesKlasoru = kitap.dataset.ses; // masalın bilgilerindeki "ses" satırı
+  const oynatici = new Audio();
+  oynatici.preload = "auto";
   let sesAcik = false;
-  let ses = null;
-  let okumaNo = 0; // eski okumaların bitişini yok saymak için
-
-  function sesSec() {
-    const tumu = konusma.getVoices();
-    const turkce = tumu.filter((v) => (v.lang || "").toLowerCase().startsWith("tr"));
-    const kadin = /yelda|seda|filiz|emel|zeynep|female|kadın|kadin/i;
-    ses = turkce.find((v) => /yelda/i.test(v.name))
-      || turkce.find((v) => kadin.test(v.name))
-      || turkce.find((v) => !/male|erkek|cem|tolga/i.test(v.name))
-      || turkce[0]
-      || null;
-  }
-
-  function cumlelereBol(metin) {
-    return metin.match(/[^.!?…]+[.!?…]+["”']?|[^.!?…]+$/g) || [metin];
-  }
 
   function oku() {
-    konusma.cancel();
-    const benim = ++okumaNo;
-    const cumleler = cumlelereBol(sayfalar[aktif].metin);
-    cumleler.forEach((c, i) => {
-      const u = new SpeechSynthesisUtterance(c.trim());
-      u.lang = "tr-TR";
-      if (ses) u.voice = ses;
-      u.rate = 0.9;
-      u.pitch = 1.05;
-      if (i === cumleler.length - 1) {
-        u.onend = () => {
-          if (!sesAcik || benim !== okumaNo) return;
-          if (aktif < sayfalar.length - 1) {
-            setTimeout(() => { if (sesAcik && benim === okumaNo) sayfaGoster(aktif + 1, { kaydir: false }); }, 900);
-          } else {
-            sesiAyarla(false);
-          }
-        };
-      }
-      konusma.speak(u);
-    });
+    oynatici.pause();
+    oynatici.src = `${sesKlasoru}${aktif + 1}.mp3`;
+    oynatici.currentTime = 0;
+    oynatici.play().catch(() => sesiAyarla(false));
   }
+
+  oynatici.addEventListener("ended", () => {
+    if (!sesAcik) return;
+    if (aktif < sayfalar.length - 1) {
+      setTimeout(() => { if (sesAcik) sayfaGoster(aktif + 1, { kaydir: false }); }, 1200);
+    } else {
+      sesiAyarla(false);
+    }
+  });
 
   function sesiAyarla(acik) {
     sesAcik = acik;
     dugme.setAttribute("aria-pressed", String(acik));
     dugme.classList.toggle("acik", acik);
     dugme.querySelector(".ikon").textContent = acik ? "🔊" : "🔈";
-    dugme.querySelector(".yazi").textContent = acik ? "Sesi kapat" : "Sesli oku";
+    dugme.querySelector(".yazi").textContent = acik ? "Sesi kapat" : "Masalı dinle";
     if (acik) oku();
-    else { okumaNo++; konusma.cancel(); }
+    else oynatici.pause();
   }
 
-  if (konusma && "SpeechSynthesisUtterance" in window) {
-    sesSec();
-    if (typeof konusma.addEventListener === "function") konusma.addEventListener("voiceschanged", sesSec);
+  if (sesKlasoru) {
     dugme.hidden = false;
     dugme.addEventListener("click", () => sesiAyarla(!sesAcik));
-    window.addEventListener("pagehide", () => konusma.cancel());
   }
 
   // --- Başlangıç: adresteki #sayfa-N varsa oradan aç
