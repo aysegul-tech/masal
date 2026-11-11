@@ -9,8 +9,8 @@ exclude:
 # Dinleyici sayacı için Firebase bilgileri (boşken sayaç görünmez).
 # Firebase konsolundaki "firebaseConfig" değerlerini buraya yaz.
 firebase:
-  apiKey: ""
-  authDomain: ""
-  databaseURL: ""
-  projectId: ""
-  appId: ""
+  apiKey: "AIzaSyDjymtLapgKnO-DM9ElrMvFRZcTwqM4gwQ"
+  authDomain: "masal-c2111.firebaseapp.com"
+  databaseURL: "https://masal-c2111-default-rtdb.europe-west1.firebasedatabase.app"
+  projectId: "masal-c2111"
+  appId: "1:990536931751:web:81f8337d8fcfe20723fe82"
