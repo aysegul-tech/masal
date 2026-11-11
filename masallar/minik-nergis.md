@@ -3,6 +3,7 @@ layout: masal
 title: "Minik Nergis"
 ozet: "Doğru söz, içten bir kalp ve iyi bir niyet üzerine kısa bir masal."
 kapak: /assets/nergis/5.jpg
+ses: /assets/nergis/ses/
 resimler: "Ayşegül Özkavukcu · Hiç Atelier"
 sira: 2
 ---
