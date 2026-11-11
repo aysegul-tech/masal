@@ -3,6 +3,7 @@ layout: masal
 title: "Ay Işığını Toplayan Kız"
 ozet: "Kapadokya'da, peribacalarının arasında geçen kısa bir masal."
 kapak: /assets/ay-isigi/2.jpg
+ses: /assets/ay-isigi/ses/
 sira: 1
 ---
 
