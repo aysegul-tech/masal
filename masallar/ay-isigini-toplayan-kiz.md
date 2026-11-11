@@ -9,7 +9,7 @@ sira: 1
 
 ![Akşam vakti peribacalı vadi, nenenin evinde yanan ışık]({{ '/assets/ay-isigi/1.jpg' | relative_url }})
 
-Evvel zaman içinde, peribacalarının gökyüzüne parmak gibi uzandığı bir vadide, Nilüfer adında bir kız yaşarmış. Köyün en yaşlı nenesi ona bir gün demiş ki: "Ay ışığı yere düştüğünde kaybolmaz kızım; taşların içine saklanır."
+Evvel zaman içinde, Nilüfer adında bir kız yaşarmış. Köyün en yaşlı nenesi ona bir gün demiş ki: "Ay ışığı yere düştüğünde kaybolmaz kızım; taşların içine saklanır."
 
 ![Dolunayda elinde testiyle vadiye inen Nilüfer]({{ '/assets/ay-isigi/2.jpg' | relative_url }})
 
