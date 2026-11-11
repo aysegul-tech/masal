@@ -1,0 +1,13 @@
+---
+layout: default
+---
+{% assign masallar = site.pages | where: "layout", "masal" | sort: "sira" %}
+<section class="liste">
+  {% for m in masallar %}
+  <a class="kart" href="{{ m.url | relative_url }}">
+    <h2>{{ m.title }}</h2>
+    {% if m.ozet %}<p>{{ m.ozet }}</p>{% endif %}
+    <span class="oku">Oku →</span>
+  </a>
+  {% endfor %}
+</section>

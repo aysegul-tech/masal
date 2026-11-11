@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<article class="masal">
+  <h1>{{ page.title }}</h1>
+  {% if page.ozet %}<p class="ozet">{{ page.ozet }}</p>{% endif %}
+  <div class="metin">
+    {{ content }}
+  </div>
+  <p class="geri"><a href="{{ '/' | relative_url }}">← Tüm masallar</a></p>
+</article>
