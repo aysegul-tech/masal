@@ -97,9 +97,9 @@ def peribacasi(x, gy, h, bw, body, cap, rnd):
          f"C{x+cw*0.3:.0f},{top-26:.0f} {x+cw*0.9:.0f},{top-8:.0f} {x+cw:.0f},{top+22:.0f} Z")
     shade = (f"M{x+nw*0.2:.0f},{top+24:.0f} C{x+nw:.0f},{top+h*0.4:.0f} {r-bw*0.2:.0f},{gy-h*0.3:.0f} {r-bw*0.12:.0f},{gy} L{r:.0f},{gy} "
              f"C{r-bw*0.08:.0f},{gy-h*0.45:.0f} {x+nw*1.4:.0f},{top+h*0.35:.0f} {x+nw:.0f},{top+18:.0f} Z")
-    return (f'<path d="{p}" fill="{body}" opacity="0.8" filter="url(#wc1)" {M}/>'
+    return (f'<path d="{p}" fill="{body}" opacity="0.97" filter="url(#wc1)"/>'
             f'<path d="{shade}" fill="{cap}" opacity="0.28" filter="url(#wc2)" {M}/>'
-            f'<path d="{c}" fill="{cap}" opacity="0.85" filter="url(#wc2)" {M}/>')
+            f'<path d="{c}" fill="{cap}" opacity="0.95" filter="url(#wc2)"/>')
 
 
 def tepe(points, gy, color, op=0.75, f="wc1"):
@@ -176,6 +176,42 @@ def vadi(rnd, gy, body, cap, xs, scale=1.0):
     return "\n".join(out)
 
 
+def acik(hexrenk, oran):
+    """Rengi kâğıt rengine doğru açar (uzaktaki sıralar için)."""
+    r, g, b = (int(hexrenk[i:i+2], 16) for i in (1, 3, 5))
+    k = (247, 241, 229)
+    return "#" + "".join(f"{int(c + (kc - c) * oran):02x}" for c, kc in zip((r, g, b), k))
+
+
+def kume(rnd, gy, body, cap, x0, x1, scale=1.0, sik=0.8):
+    """x0–x1 arasında birbirine yaslanan, ortası daha yüksek bir peribacası kümesi."""
+    xs, x = [], x0
+    while x < x1:
+        bw = rnd.uniform(80, 120) * scale
+        xs.append((x, bw))
+        x += bw * sik * rnd.uniform(0.8, 1.15)
+    orta = (x0 + x1) / 2
+    yari = max(1, (x1 - x0) / 2)
+    out = []
+    # önce kısalar, sonra uzunlar; kenardakiler daha kısa
+    sirali = sorted(xs, key=lambda t: -abs(t[0] - orta))
+    for x, bw in sirali:
+        yakinlik = 1 - min(1, abs(x - orta) / yari) * 0.45
+        h = rnd.uniform(180, 300) * scale * yakinlik
+        out.append(peribacasi(x, gy + rnd.uniform(-6, 10), h, bw, body, cap, rnd))
+    return "\n".join(out)
+
+
+def vadi2(rnd, gy, body, cap, on_kumeler, scale=1.0, arka=True):
+    """Arkada soluk, sık bir sıra; önde belirgin kümeler."""
+    out = []
+    if arka:
+        out.append(kume(rnd, gy - 45, acik(body, 0.5), acik(cap, 0.5), -40, W + 40, scale * 0.55, sik=1.15))
+    for x0, x1 in on_kumeler:
+        out.append(kume(rnd, gy, body, cap, x0, x1, scale))
+    return "\n".join(out)
+
+
 # --- Sahneler ---------------------------------------------------------------
 
 def sahne1():
@@ -185,7 +221,7 @@ def sahne1():
          yildizlar(rnd, 26, 230),
          ay(930, 150, 46),
          tepe([(150, 520), (420, 470), (700, 510), (1000, 460), (1260, 500)], 0, "#c9a98c", 0.55),
-         vadi(rnd, 600, "#d9b48a", "#7a5640", [110, 300, 520, 820, 1050], 1.05),
+         vadi2(rnd, 600, "#d9b48a", "#7a5640", [(20, 470), (760, 1180)], 1.05),
          tepe([(200, 610), (500, 590), (800, 620), (1100, 600)], 0, "#b68a64", 0.8),
          ev(640, 640, 1.4, "#e6cfae", "#8a6248", "#ffcf6b"),
          tepe([(300, 700), (700, 680), (1000, 710)], 0, "#8a6a52", 0.75, "wc2")]
@@ -198,7 +234,7 @@ def sahne2():
     b = [sky("#23315f", "#3f5591", "#8c8fb8", 560),
          yildizlar(rnd, 40, 330),
          ay(860, 190, 78),
-         vadi(rnd, 560, "#8f94b8", "#3f456e", [120, 330, 1080], 1.15),
+         vadi2(rnd, 560, "#8f94b8", "#3f456e", [(10, 400), (780, 1190)], 1.1),
          tepe([(150, 548), (450, 535), (800, 552), (1150, 540)], 0, "#5d6595", 0.85),
          # taşların içinde saklı ışık
          "\n".join(f'<circle cx="{x}" cy="{y}" r="{r}" fill="#fff2c4" opacity="0.5" filter="url(#glow)"/>'
@@ -235,7 +271,7 @@ def sahne4():
          f'<circle cx="300" cy="300" r="90" fill="#fbd27a" opacity="0.55" filter="url(#wash)" {M}/>',
          '<circle cx="300" cy="300" r="46" fill="#f8c25c" opacity="0.85" filter="url(#wc2)"/>',
          tepe([(150, 510), (500, 480), (850, 500), (1200, 470)], 0, "#d8b897", 0.55),
-         vadi(rnd, 590, "#e2b98d", "#9a6a48", [140, 520, 760, 980, 1130], 0.95),
+         vadi2(rnd, 590, "#e2b98d", "#9a6a48", [(380, 760), (980, 1190)], 0.95),
          tepe([(200, 610), (550, 600), (900, 630), (1200, 610)], 0, "#c79a6e", 0.8),
          '<path d="M1180,800 C1000,740 900,720 820,690" fill="none" stroke="#f1dcc0" stroke-width="40" stroke-linecap="round" opacity="0.8" filter="url(#wc1)"/>',
          tepe([(300, 720), (650, 700), (1000, 730)], 0, "#a37b58", 0.7, "wc2"),
@@ -258,7 +294,7 @@ def sahne5():
     b = [sky("#a7c2dc", "#d7e3ea", "#f6e8cf", 600),
          wash(300, 200, 260, 70, "#ffffff", 0.6),
          wash(900, 150, 300, 60, "#ffffff", 0.55),
-         vadi(rnd, 680, "#e1c09c", "#9c7354", [120, 1080], 0.9),
+         vadi2(rnd, 680, "#e1c09c", "#9c7354", [(10, 260), (940, 1190)], 0.9),
          tepe([(200, 680), (600, 650), (1000, 690)], 0, "#b9a07f", 0.7),
          elma(390, 300, 1.4, -14),
          elma(610, 440, 1.6, 8),
