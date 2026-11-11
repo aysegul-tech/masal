@@ -128,7 +128,8 @@ a { color: var(--vurgu); }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
   margin-top: 2rem;
   color: var(--soluk);
   font-size: .95rem;
@@ -148,9 +149,6 @@ a { color: var(--vurgu); }
 .sayfa-nav button:disabled { opacity: .35; cursor: default; }
 
 .ses-dugme {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
@@ -161,9 +159,11 @@ a { color: var(--vurgu); }
   color: var(--murekkep);
   font: inherit;
   font-size: .95rem;
-  box-shadow: 0 4px 16px rgba(47, 42, 36, .12);
   cursor: pointer;
+  transition: background .15s ease;
 }
+.ses-dugme:hover { background: #f0ece3; }
+.ses-dugme.acik:hover { background: #355d78; }
 .ses-dugme.acik {
   background: var(--vurgu);
   border-color: var(--vurgu);
@@ -190,5 +190,14 @@ a { color: var(--vurgu); }
   border-top: 1px solid var(--cizgi);
 }
 
-/* Ses düğmesi alttaki bağlantıların üstüne binmesin */
-.masal { padding-bottom: 4.5rem; }
+/* Ses düğmesi okların yanında: yuvarlak ok düğmesi kuralını geçersiz kıl */
+.sayfa-nav .ses-dugme {
+  width: auto;
+  height: 3rem;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  color: var(--murekkep);
+  font-size: .95rem;
+}
+.sayfa-nav .ses-dugme.acik { background: var(--vurgu); border-color: var(--vurgu); color: #fff; }
+.sayfa-nav .ses-dugme.acik:hover { background: #355d78; }
