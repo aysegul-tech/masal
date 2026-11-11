@@ -21,8 +21,22 @@ Masalların okunduğu basit bir web sitesi. GitHub Pages ile ücretsiz yayınlan
 3. Altına masalı düz metin olarak yaz. Paragrafların arasında bir boş satır bırak.
 4. Kaydet, GitHub Desktop'ta commit et ve **Push origin** de. Site birkaç dakika içinde güncellenir.
 
-Resim eklemek için resmi `assets/` klasörüne koy ve masalın içine şunu yaz:
-`![Açıklama]({{ '/assets/resim-adi.jpg' | relative_url }})`
+## Resimli sayfalar
+
+Masal sayfa sayfa okunur: **her resim, altındaki paragrafla birlikte bir sayfa olur.**
+Resmi `assets/` altında masala ait bir klasöre koy ve ilgili paragrafın hemen üstüne yaz:
+
+`![Resmin kısa açıklaması]({{ '/assets/klasor-adi/1.jpg' | relative_url }})`
+
+Ana sayfadaki kartta görünecek resim için en üstteki bilgilere `kapak: /assets/klasor-adi/1.jpg` ekle.
+Resimler en iyi 3:2 oranında (ör. 1200×800) görünür. Kendi suluboya resimlerinin fotoğrafını da koyabilirsin.
+
+## Sesli okuma
+
+Sağ alttaki **Sesli oku** düğmesi masalı tarayıcının Türkçe kadın sesiyle okur ve her sayfanın sonunda
+kendiliğinden sonraki sayfaya geçer. Mac ve iPhone'da "Yelda" sesi kullanılır. Düğmeye tekrar basınca ses kapanır.
+
+`_araclar/suluboya.py` örnek masalın resimlerini üreten betiktir.
 
 ## Dosyalar
 

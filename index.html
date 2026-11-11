@@ -5,6 +5,7 @@ layout: default
 <section class="liste">
   {% for m in masallar %}
   <a class="kart" href="{{ m.url | relative_url }}">
+    {% if m.kapak %}<img class="kapak" src="{{ m.kapak | relative_url }}" alt="" loading="lazy">{% endif %}
     <h2>{{ m.title }}</h2>
     {% if m.ozet %}<p>{{ m.ozet }}</p>{% endif %}
     <span class="oku">Oku →</span>
