@@ -201,3 +201,27 @@ a { color: var(--vurgu); }
 }
 .sayfa-nav .ses-dugme.acik { background: var(--vurgu); border-color: var(--vurgu); color: #fff; }
 .sayfa-nav .ses-dugme.acik:hover { background: #355d78; }
+
+/* Dinleyici sayacı */
+.sayac {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem .6rem;
+  margin: 1.25rem 0 0;
+  color: var(--soluk);
+  font-size: .9rem;
+}
+.sayac .canli.var { color: var(--vurgu); }
+.sayac .canli.var::before {
+  content: "";
+  display: inline-block;
+  width: .5rem;
+  height: .5rem;
+  margin-right: .45rem;
+  border-radius: 50%;
+  background: #4caf7a;
+  vertical-align: middle;
+  animation: nabiz 1.6s ease-in-out infinite;
+}
+@keyframes nabiz { 50% { opacity: .3; } }

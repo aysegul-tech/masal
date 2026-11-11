@@ -5,3 +5,12 @@ baseurl: "/masal"
 markdown: kramdown
 exclude:
   - README.md
+
+# Dinleyici sayacı için Firebase bilgileri (boşken sayaç görünmez).
+# Firebase konsolundaki "firebaseConfig" değerlerini buraya yaz.
+firebase:
+  apiKey: ""
+  authDomain: ""
+  databaseURL: ""
+  projectId: ""
+  appId: ""

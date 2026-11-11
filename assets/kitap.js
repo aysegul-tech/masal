@@ -107,6 +107,8 @@
     dugme.querySelector(".yazi").textContent = acik ? "Sesi kapat" : "Masalı dinle";
     if (acik) oku();
     else oynatici.pause();
+    // Sayaç (sayac.js) dinlemeye başlandığını / bırakıldığını buradan öğrenir
+    document.dispatchEvent(new CustomEvent(acik ? "masal:dinleme-basladi" : "masal:dinleme-bitti"));
   }
 
   if (sesKlasoru) {

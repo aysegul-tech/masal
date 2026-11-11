@@ -1,0 +1,22 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "masallar": {
+      "$masal": {
+        "dinleyen": {
+          ".read": true,
+          "$kisi": {
+            ".write": true,
+            ".validate": "newData.val() === true"
+          }
+        },
+        "toplam": {
+          ".read": true,
+          ".write": true,
+          ".validate": "newData.isNumber() && newData.val() === (data.exists() ? data.val() : 0) + 1"
+        }
+      }
+    }
+  }
+}
